@@ -1839,9 +1839,9 @@ Comparison is done with `eq'."
   ;; garbage-collect then repeatedly try to deep-copy `buffer-undo-list' until
   ;; we succeed without GC running, in an attempt to mitigate race conditions
   ;; with garbage collector corrupting undo history (is this even a thing?!)
-  (unless (or (null buffer-undo-list)
-	      (undo-list-found-canary-p buffer-undo-list))
-    (garbage-collect))
+  ;; (unless (or (null buffer-undo-list)
+  ;;         (undo-list-found-canary-p buffer-undo-list))
+  ;;   (garbage-collect))
   (let (undo-list changeset)
     (setq undo-tree-gc-flag t)
     (while undo-tree-gc-flag
@@ -2766,9 +2766,9 @@ Within the undo-tree visualizer, the following keys are available:
 
   \\{undo-tree-visualizer-mode-map}"
 
-  nil                       ; init value
-  undo-tree-mode-lighter    ; lighter
-  undo-tree-map             ; keymap
+  :init-value nil
+  :lighter undo-tree-mode-lighter
+  :keymap undo-tree-map
 
   (cond
    (undo-tree-mode  ; enabling `undo-tree-mode'
